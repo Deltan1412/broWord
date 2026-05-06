@@ -1,0 +1,108 @@
+.email-auth {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: var(--space-6);
+  border: 1px solid var(--color-line-soft);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  animation: fade-up var(--transition-slow) both;
+}
+
+.email-auth__title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: var(--space-2);
+}
+
+.email-auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.email-auth__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.email-auth__field label {
+  font-size: 0.85rem;
+  color: var(--color-fg-soft);
+}
+
+.email-auth__field input {
+  padding: 10px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: border-color var(--transition-mid);
+}
+
+.email-auth__field input:focus {
+  outline: none;
+  border-color: var(--color-fg);
+}
+
+.email-auth__field input::placeholder {
+  opacity: 0.3;
+}
+
+.email-auth__remember {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: -var(--space-2);
+}
+
+.email-auth__remember input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.email-auth__remember label {
+  font-size: 0.85rem;
+  color: var(--color-fg-soft);
+  cursor: pointer;
+}
+
+.email-auth__submit {
+  margin-top: var(--space-2);
+  width: 100%;
+}
+
+.email-auth__error {
+  margin-top: 0;
+}
+
+.email-auth__toggle {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-fg-soft);
+  margin-top: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-line-soft);
+}
+
+.email-auth__toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-fg);
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color var(--transition-mid);
+}
+
+.email-auth__toggle-btn:hover {
+  text-decoration-color: var(--color-fg);
+}

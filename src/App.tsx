@@ -6,6 +6,7 @@ import { Header } from './components/Layout/Header';
 import { ParagraphInput } from './components/Paragraph/ParagraphInput';
 import { WordSelector } from './components/Paragraph/WordSelector';
 import { ResultDisplay } from './components/Result/ResultDisplay';
+import { EmailAuth } from './components/Auth/EmailAuth';
 import type { ProcessResult } from './types';
 import './App.css';
 
@@ -74,9 +75,17 @@ export default function App() {
             <p className="welcome__subtitle">
               paste a paragraph, click the words you don't know, and read it again — simpler.
             </p>
-            <button className="btn btn--primary btn--large" onClick={signInWithGoogle}>
-              sign in with Google
-            </button>
+            <div className="auth-container" style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center' }}>
+              <EmailAuth />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', maxWidth: '400px' }}>
+                <div style={{ flex: 1, height: '1px', background: 'var(--color-line-soft)' }} />
+                <span style={{ fontSize: '0.85rem', color: 'var(--color-fg-faint)' }}>OR</span>
+                <div style={{ flex: 1, height: '1px', background: 'var(--color-line-soft)' }} />
+              </div>
+              <button className="btn btn--ghost" onClick={signInWithGoogle} style={{ width: '100%', maxWidth: '400px' }}>
+                Sign in with Google
+              </button>
+            </div>
           </div>
         ) : (
           <>
