@@ -22,7 +22,8 @@ export function useAuth() {
     });
 
     // Then prime the state with whatever session is already cached.
-    supabase.auth.getSession().then(({ data, error }) => {
+    supabase.auth.getSession().then(
+      ({ data, error }) => {
       if (error && import.meta.env.DEV) console.error('[auth] getSession error', error);
       if (!active) return;
       setSession(data.session);

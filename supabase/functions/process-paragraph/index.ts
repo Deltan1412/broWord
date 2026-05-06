@@ -41,7 +41,7 @@ interface GeminiResponse {
 const MAX_WORDS = 250;
 const MAX_SELECTED = 30;
 const MIN_WORDS = 5;
-const MODEL = 'gemini-2.0-flash';
+const MODEL = 'gemini-3-flash-preview';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
