@@ -22,6 +22,10 @@ export default function App() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [result, setResult] = useState<ProcessResult | null>(null);
 
+  // Extract auth errors from URL
+  const params = new URLSearchParams(window.location.search);
+  const authError = params.get('error_description') || params.get('error');
+
   const toggleWord = (word: string) => {
     setSelected((prev) => {
       const next = new Set(prev);
@@ -75,6 +79,21 @@ export default function App() {
             <p className="welcome__subtitle">
               paste a paragraph, click the words you don't know, and read it again — simpler.
             </p>
+            
+            {authError && (
+              <div className="error-box" style={{ 
+                background: '#fff0f0', 
+                border: '1px solid #ffc1c1', 
+                padding: '1rem', 
+                borderRadius: '4px', 
+                color: '#d32f2f',
+                marginBottom: '1rem',
+                fontSize: '0.9rem'
+              }}>
+                <strong>Login Failed:</strong> {decodeURIComponent(authError.replace(/\+/g, ' '))}
+              </div>
+            )}
+
             <div className="auth-container" style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center' }}>
               <EmailAuth />
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', maxWidth: '400px' }}>

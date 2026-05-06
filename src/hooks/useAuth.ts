@@ -30,9 +30,8 @@ export function useAuth() {
       setLoading(false);
     });
 
-    // PKCE fallback: if Supabase didn't auto-exchange the ?code=... param
-    // (can happen under React Strict Mode where the first effect's call
-    // consumed the code before this run subscribed), do it explicitly.
+    // The state will be updated by the onAuthStateChange listener above
+    // when detectSessionInUrl completes the exchange.
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     const error = params.get('error');
@@ -42,24 +41,8 @@ export function useAuth() {
       console.error('[auth] URL error:', error, error_description);
     }
 
-    if (code) {
-      if (import.meta.env.DEV) console.log('[auth] Found code in URL, exchanging...');
-      supabase.auth.exchangeCodeForSession(code).then(({ data, error }) => {
-        if (error) {
-          if (import.meta.env.DEV) console.warn('[auth] exchange failed (might have been handled by detectSessionInUrl)', error);
-        } else if (data.session) {
-          if (import.meta.env.DEV) console.log('[auth] exchange successful');
-          setSession(data.session);
-          setUser(data.session.user);
-        }
-        // Always strip ?code= and ?error= from the URL so a refresh doesn't retry.
-        const url = new URL(window.location.href);
-        url.searchParams.delete('code');
-        url.searchParams.delete('error');
-        url.searchParams.delete('error_description');
-        url.searchParams.delete('state');
-        window.history.replaceState({}, document.title, url.pathname + url.search + url.hash);
-      });
+    if (code && import.meta.env.DEV) {
+      console.log('[auth] Code detected in URL, waiting for Supabase auto-exchange...');
     }
 
     return () => {

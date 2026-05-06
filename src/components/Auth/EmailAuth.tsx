@@ -16,6 +16,7 @@ export function EmailAuth({ onSuccess }: EmailAuthProps) {
   const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showVerificationWarning, setShowVerificationWarning] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,20 +33,11 @@ export function EmailAuth({ onSuccess }: EmailAuthProps) {
       if (mode === 'signup') {
         const { error: signUpError } = await signUp(email, password);
         if (signUpError) throw signUpError;
-        // Optionally handle auto-signin or email verification instructions here
-        // If sign up doesn't auto login, we can switch to sign in mode or show success
+        setShowVerificationWarning(true);
+        return;
       } else {
-        // If the user doesn't want to remember me, Supabase doesn't easily let us change persistSession per request using signInWithPassword in @supabase/supabase-js v2 via the client without global config change. 
-        // We handle it simply by letting Supabase do its default but we could warn or we can just accept it for now.
-        // Wait, the user asked "sign in only do 1 and save password also". 
         const { error: signInError } = await signInWithPassword(email, password);
         if (signInError) throw signInError;
-        
-        if (!rememberMe) {
-          // A rudimentary way to handle "don't remember me" is to clear local storage after session is established, 
-          // or we just tell the user this is a standard sign in.
-          // For now we'll just sign in.
-        }
       }
       if (onSuccess) onSuccess();
     } catch (err: any) {
@@ -54,6 +46,26 @@ export function EmailAuth({ onSuccess }: EmailAuthProps) {
       setLoading(false);
     }
   };
+
+  if (showVerificationWarning) {
+    return (
+      <div className="email-auth">
+        <h2 className="email-auth__title">Check your email</h2>
+        <div className="email-auth__success-msg" style={{ textAlign: 'center', margin: '1rem 0', color: 'var(--color-fg-soft)' }}>
+          We've sent a verification link to <strong>{email}</strong>. Please verify your email to continue.
+        </div>
+        <button 
+          className="btn btn--primary email-auth__submit"
+          onClick={() => {
+            setShowVerificationWarning(false);
+            setMode('signin');
+          }}
+        >
+          Back to Sign In
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="email-auth">
