@@ -14,7 +14,7 @@ export function useAuth() {
     // detectSessionInUrl/exchangeCodeForSession fires after Google OAuth.
     const { data: sub } = supabase.auth.onAuthStateChange((event, newSession) => {
       if (!active) return;
-      if (import.meta.env.DEV) console.log('[auth]', event, !!newSession);
+
       setSession(newSession);
       setUser(newSession?.user ?? null);
       setLoading(false);

@@ -9,7 +9,7 @@
 //   SUPABASE_ANON_KEY    — auto-set by Supabase
 //   SUPABASE_SERVICE_ROLE_KEY — auto-set by Supabase
 
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.45.4';
+import { createClient } from '@supabase/supabase-js';
 
 interface RequestBody {
   paragraph: string;
