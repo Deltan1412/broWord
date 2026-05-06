@@ -1,0 +1,7 @@
+# Supabase project config (only the bits the CLI needs locally).
+# Replace project_id with your linked ref via `supabase link --project-ref ...`.
+
+project_id = "bro-word"
+
+[functions.process-paragraph]
+verify_jwt = true

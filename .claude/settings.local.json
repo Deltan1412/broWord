@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p src/components/Layout src/components/Paragraph src/components/Result src/hooks src/lib src/styles src/types public supabase/functions/process-paragraph supabase/migrations)",
+      "Bash(npm --version)"
+    ]
+  }
+}
