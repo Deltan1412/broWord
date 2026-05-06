@@ -11,13 +11,44 @@ interface Props {
 
 export function ResultDisplay({ result, originalParagraph, onReset }: Props) {
   const [activeWord, setActiveWord] = useState<string | null>(null);
+  const [isComparing, setIsComparing] = useState(false);
 
   return (
     <section className="result">
-      <h2 className="result__heading">your simplified text</h2>
+      <div className="result__header">
+        <h2 className="result__heading">your simplified text</h2>
+        <button 
+          className={`btn btn--ghost btn--small result__compare-btn ${isComparing ? 'btn--active' : ''}`}
+          onClick={() => setIsComparing(!isComparing)}
+        >
+          {isComparing ? '← hide original' : '↔ compare with original'}
+        </button>
+      </div>
+
+      <div className={`result__content ${isComparing ? 'result__content--split' : ''}`}>
+        {isComparing && (
+          <div className="result__column result__column--original">
+            <h3 className="result__subheading">original text</h3>
+            <div className="result__text-box">
+              <p className="result__original-text">{originalParagraph}</p>
+            </div>
+          </div>
+        )}
+
+        <div className="result__column result__column--simplified">
+          <h3 className="result__subheading">simplified paragraph</h3>
+          <div className="result__text-box result__text-box--gray">
+            <SimplifiedParagraph
+              text={result.simplified_paragraph}
+              mapping={result.words}
+              activeWord={activeWord}
+            />
+          </div>
+        </div>
+      </div>
 
       <div className="result__section">
-        <h3 className="result__subheading">words</h3>
+        <h3 className="result__subheading">definitions</h3>
         <div className="result__cards">
           {result.words.map((entry) => (
             <DefinitionCard
@@ -29,20 +60,6 @@ export function ResultDisplay({ result, originalParagraph, onReset }: Props) {
             />
           ))}
         </div>
-      </div>
-
-      <div className="result__section">
-        <h3 className="result__subheading">simplified paragraph</h3>
-        <SimplifiedParagraph
-          text={result.simplified_paragraph}
-          mapping={result.words}
-          activeWord={activeWord}
-        />
-      </div>
-
-      <div className="result__section">
-        <h3 className="result__subheading">original</h3>
-        <p className="result__original">{originalParagraph}</p>
       </div>
 
       <div className="result__footer">
