@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { ProcessResult } from '../../types';
 import { DefinitionCard } from './DefinitionCard';
 import { SimplifiedParagraph } from './SimplifiedParagraph';
+import { OriginalParagraph } from './OriginalParagraph';
 
 interface Props {
   result: ProcessResult;
@@ -30,7 +31,11 @@ export function ResultDisplay({ result, originalParagraph, onReset }: Props) {
           <div className="result__column result__column--original">
             <h3 className="result__subheading">original text</h3>
             <div className="result__text-box">
-              <p className="result__original-text">{originalParagraph}</p>
+              <OriginalParagraph
+                text={originalParagraph}
+                mapping={result.words}
+                activeWord={activeWord}
+              />
             </div>
           </div>
         )}
