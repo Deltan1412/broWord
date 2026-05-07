@@ -8,7 +8,7 @@
 .app__main {
   flex: 1;
   width: 100%;
-  max-width: 760px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: var(--space-7) var(--space-5);
 }
@@ -260,11 +260,12 @@
 }
 
 .word-selector__paragraph {
-  padding: var(--space-5);
-  border: 1px solid var(--color-line);
+  padding: var(--space-6);
+  border: 1px solid var(--color-line-soft);
   border-radius: var(--radius-lg);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   line-height: 2;
+  background-color: #f8f8f8;
 }
 
 .word {
@@ -362,12 +363,8 @@
 
 .result__simplified,
 .result__original {
-  font-size: 1.05rem;
-  font-weight: 300;
-  line-height: 1.9;
-  padding: var(--space-5);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-lg);
+  margin: 0;
+  color: var(--color-fg);
 }
 
 .result__original {
@@ -400,7 +397,7 @@
     border-color var(--transition-mid),
     transform var(--transition-mid);
   outline: none;
-  background: var(--color-bg);
+  background: #f8f8f8;
 }
 
 .def-card:hover,
@@ -513,4 +510,172 @@
     font-size: 1rem;
     padding: var(--space-4);
   }
+}
+
+/* Result Header Layout */
+.result__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-2);
+}
+
+/* Result Details/Summary Dropdown */
+.result__details {
+  border: 1px solid var(--color-line-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  max-width: 300px;
+  width: 100%;
+}
+
+.result__summary {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--color-fg-soft);
+  background: #fdfdfd;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  user-select: none;
+  transition: all 0.3s ease;
+  border-radius: var(--radius-lg);
+}
+
+.result__summary::-webkit-details-marker {
+  display: none;
+}
+
+.result__summary::before {
+  content: '▼';
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+  opacity: 0.5;
+}
+
+.result__details[open] .result__summary::before {
+  transform: rotate(-180deg);
+}
+
+.result__details[open] .result__summary {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom: 1px solid var(--color-line-soft);
+}
+
+.result__summary:hover {
+  background: #f0f0f0;
+  color: var(--color-fg);
+}
+
+.result__original-wrapper {
+  background: #ffffff;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.result__original {
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: var(--space-4) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+  color: var(--color-fg-soft) !important;
+}
+
+/* Active Highlight Emphasis */
+.result__highlight {
+  cursor: help;
+  padding: 1px 4px;
+  margin: 0 -1px;
+}
+
+.result__highlight--active {
+  box-shadow: 0 0 0 2px var(--color-fg);
+  z-index: 1;
+  position: relative;
+}
+
+@media (max-width: 600px) {
+  .result__header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .result__details {
+    max-width: 100%;
+  }
+}
+
+/* Side-by-Side Comparison Layout */
+.result__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.btn--small {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+.btn--active {
+  background: var(--color-fg);
+  color: var(--color-bg);
+}
+
+.result__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  transition: all 0.4s ease;
+}
+
+.result__content--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+
+.result__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.result__text-box {
+  padding: var(--space-5);
+  border: 1px solid var(--color-line-soft);
+  border-radius: var(--radius-lg);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  flex: 1;
+}
+
+.result__text-box--gray {
+  background-color: #f8f8f8;
+}
+
+.result__original-text {
+  color: var(--color-fg-soft);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .result__content--split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Result Highlighting Tweaks */
+.result__highlight {
+  background-color: var(--color-highlight);
+  color: var(--color-fg);
+  padding: 0 4px;
+  border-radius: 3px;
+  font-weight: 400;
 }
